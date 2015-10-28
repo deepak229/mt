@@ -1,0 +1,60 @@
+<div class="modal-header">
+	<h3 class="modal-title">Send money <span ng-if="preDefinedToAccount.id !=''"> to {{preDefinedToAccount.externalName}}</span></h3>
+</div>
+<div class="modal-body">
+	<form ng-submit="submitAddMoney();" accept-charset="utf-8">
+		<div class="form-group"  ng-class="{ 'has-error': money.fromAccount.$invalid && money.fromAccount.$dirty }">
+			<div>
+				<select required id="fromAccount" name="fromAccount" ng-model = "money.fromAccount" class="form-control">
+					<option value="" disabled>From Account</option>
+					<option ng-repeat="account in accounts" ng-if="account.isUS" value="{{account.id}}">{{account.externalName}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group" ng-if="!preDefinedToAccount"  ng-class="{ 'has-error': money.toAccount.$invalid && money.toAccount.$dirty }">
+			<div>
+				<select required id="toAccount" name="toAccount" ng-model = "money.toAccount" class="form-control" 
+					>
+					<option value="" disabled>To Account</option>
+					<option ng-repeat="account in accounts" ng-if="!account.isUS" value="{{account.id}}">{{account.externalName}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group" ng-class="{ 'has-error': money.dollars.$invalid && money.dollars.$dirty }">
+			<div class="input-group">
+				<div class="input-group-addon">$</div>
+				<input required  type="number" ng-model="money.dollars" class="form-control" id="dollars" placeholder="Dollars" ng-change="udpateRupees();">
+				<div class="input-group-addon">.00</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-12 control-label">Exchange Rate: {{exchangerate}}</label>
+		</div>
+
+		<div class="form-group"  ng-class="{ 'has-error': money.rupees.$invalid && money.rupees.$dirty }">
+			<div class="input-group">
+				<div class="input-group-addon">Rs.</div>
+				<input type="number" class="form-control" required ng-model="money.rupees" id="rupees" placeholder="Rupees" ng-change="udpateDollars();">
+				<div class="input-group-addon">.00</div>
+			</div>
+		</div>
+
+		<div class="form-group"  ng-class="{ 'has-error': money.rupees.$invalid && money.rupees.$dirty }">
+			<div class="input-group">
+				<div class="input-group-addon">Rs.</div>
+				<input type="number" class="form-control" required ng-model="money.rupees" id="rupees" placeholder="Rupees" ng-change="udpateDollars();">
+				<div class="input-group-addon">.00</div>
+			</div>
+		</div>
+		<div class="alert alert-danger" role="alert" ng-if="addMoneyFailed">Failed to Add money. Please check the logs.</div>
+
+
+	</form>
+</div>
+<div class="modal-footer">
+	<input  class="btn btn-success" type="submit" ng-click="submitAddMoney()" value="Add" />
+	<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

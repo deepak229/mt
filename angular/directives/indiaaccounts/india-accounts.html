@@ -1,0 +1,28 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		Accounts
+		<button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top:-5px;" ng-click="init();">
+		  <span class=" glyphicon glyphicon-refresh" aria-hidden="true"></span> 
+		</button>
+	</div>
+	<div class="panel-body">
+		<table class="table table-hover">
+			<thead>
+				<th>Name</th>
+				<th>Dollars</th>
+				<th>Rupees</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="account in accounts" ng-if="!account.isUS">
+					<td>{{account.externalName}}</td>
+					<td>{{account.dollars}}</td>
+					<td>{{account.rupees}}</td>
+					<td>
+						<button type="button" class="btn btn-success btn-sm" ng-click="addMoneyPopup(account);">Add</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
